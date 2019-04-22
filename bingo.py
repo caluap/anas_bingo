@@ -34,7 +34,7 @@ s_w = s_h = (small - margin * 2) / columns
 margin_x = (w - s_w * columns) / 2
 margin_y = (h - s_h * columns) / 2
 
-n_cards = 10
+n_cards = 16
 cell_margin = s_w * 0.05
 
 
@@ -64,7 +64,7 @@ for card in range(n_cards):
                 current_term = "Termo faltante"
                 
             can_print = False
-            fs = 11
+            fs = 16
             tx = x + cell_margin
             ty = y + cell_margin
             tw = s_w - cell_margin * 2

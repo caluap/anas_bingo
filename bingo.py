@@ -9,16 +9,7 @@ terms = ['Cidadão',
     'Direito coletivo', 
     'Constituição', 
     'Constituição cidadã',
-    'Estatuto da Criança e Adolescente',
-    'Direitos individuais', 
-    'Direito coletivo', 
-    'Constituição', 
-    'Constituição cidadã',
-    'Estatuto da Criança e Adolescente',
-    'Direitos individuais', 
-    'Direito coletivo', 
-    'Constituição', 
-    'Constituição cidadã'
+    'Estatuto da Criança e Adolescente'
     ]
     
 h = 842/2
@@ -31,6 +22,7 @@ columns = math.ceil(math.sqrt(len(terms)))
 # for the middle cell to be a “free space” there needs to be at least one word
 # less than cells! (and this only works when there are an odd number of columns)
 free_spaces = columns * columns - len(terms)
+free_space_term = 'Espaço Livre'
 
 margin = 30
 if w < h:
@@ -55,7 +47,7 @@ for card in range(n_cards):
     random.shuffle(aux_terms)
     if columns % 2 != 0 and free_spaces > 0:
         i_term = round(columns * columns / 2)
-        aux_terms.insert(i_term, 'Espaço Livre')
+        aux_terms.insert(i_term, free_space_term)
     for c in range(columns):
         for l in range(columns):
             x = s_w * c + margin_x
@@ -87,7 +79,10 @@ for card in range(n_cards):
                     fs = fs - 1
             
             stroke(None)
-            fill(0)
+            if current_term == free_space_term:
+                fill(0.5, 0.5, 0.5)
+            else:
+                fill(0)
             text_width, text_height = textSize(current_term, align="center", width=tw)
             cell_offset_y = (th - text_height) / 2
             textBox(current_term, (tx, ty - cell_offset_y, tw, th), align="center")

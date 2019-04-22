@@ -9,10 +9,22 @@ terms = ['Cidadão',
     'Direito coletivo', 
     'Constituição', 
     'Constituição cidadã',
-    'Estatuto da Criança e Adolescente'
+    'Estatuto da Criança e Adolescente',
+    'Direitos individuais', 
+    'Direito coletivo', 
+    'Constituição', 
+    'Constituição cidadã',
+    'Estatuto da Criança e Adolescente',
+    'Direitos individuais', 
+    'Direito coletivo', 
+    'Constituição', 
+    'Constituição cidadã'
     ]
     
-size(595,842/2)    
+h = 842/2
+w = 595
+
+size('A4')
 
 
 columns = math.ceil(math.sqrt(len(terms)))
@@ -20,41 +32,47 @@ columns = math.ceil(math.sqrt(len(terms)))
 # less than cells! (and this only works when there are an odd number of columns)
 free_spaces = columns * columns - len(terms)
 
-margin = 50
-if (width() < height()):
-    small = width()
+margin = 30
+if w < h:
+    small = w
 else:
-    small = height()
+    small = h
     
 s_w = s_h = (small - margin * 2) / columns
-margin_x = (width() - s_w * columns) / 2
-margin_y = (height() - s_h * columns) / 2
+margin_x = (w - s_w * columns) / 2
+margin_y = (h - s_h * columns) / 2
 
-n_cards = 1
-cell_margin = s_w * 0.10
+n_cards = 10
+cell_margin = s_w * 0.05
 
 
 for card in range(n_cards):
+    if card % 2 == 0:
+        offset_y = height() / 2
+    else:
+        offset_y = 0
     aux_terms = terms.copy()
     random.shuffle(aux_terms)
     if columns % 2 != 0 and free_spaces > 0:
-        aux_terms.insert(math.floor(len(terms)/2), 'Espaço Livre')
+        i_term = round(columns * columns / 2)
+        aux_terms.insert(i_term, 'Espaço Livre')
     for c in range(columns):
         for l in range(columns):
             x = s_w * c + margin_x
-            y = s_h * l + margin_y
-            
+            y = s_h * l + margin_y + offset_y
+                        
             fill(None)
             stroke(0)
             rect(x, y, s_w, s_h)
             
             i = c * columns + l
-            if (c < len(terms)):
-                current_term = aux_terms[c * columns + l]
+            if i < len(terms):
+                current_term = aux_terms[i]
             else:
                 current_term = "Termo faltante"
+                
             can_print = False
-            fs = 14
+            fs = 11
             tx = x + cell_margin
             ty = y + cell_margin
             tw = s_w - cell_margin * 2
@@ -71,7 +89,8 @@ for card in range(n_cards):
             stroke(None)
             fill(0)
             text_width, text_height = textSize(current_term, align="center", width=tw)
-            offset_y = (th - text_height) / 2
-            textBox(current_term, (tx, ty - offset_y, tw, th), align="center")
-                    
-        
+            cell_offset_y = (th - text_height) / 2
+            textBox(current_term, (tx, ty - cell_offset_y, tw, th), align="center")
+
+    if card > 0 and card % 2 != 0 and card < n_cards-1:
+        newPage()

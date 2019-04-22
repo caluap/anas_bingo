@@ -12,7 +12,7 @@ terms = ['Cidadão',
     'Estatuto da Criança e Adolescente'
     ]
     
-n_cards = 1
+n_cards = 10
 size(595,842/2)
 
 columns = math.ceil(math.sqrt(len(terms)))
@@ -24,12 +24,12 @@ for card in range(n_cards):
     aux_terms = terms.copy()
     random.shuffle(aux_terms)
     if columns % 2 != 0 and free_spaces > 0:
-        terms.insert(math.floor(len(terms)/2), 'Espaço Livre')
+        aux_terms.insert(math.floor(len(terms)/2), 'Espaço Livre')
     for c in range(columns):
         for l in range(columns):
             i = c * columns + l
             if (c < len(terms)):
-                text = terms[c * columns + l]
+                text = str(i) + ' ' + aux_terms[c * columns + l]
             else:
                 text = "Termo faltante"
             print(text)
